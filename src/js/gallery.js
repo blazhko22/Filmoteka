@@ -1,13 +1,21 @@
-import FetchMovieHeader from './FetchMovie';
-import movieTpl from '../templates/fetchMovieTemplate.hbs';
 import ref from './Refs';
+import movieCardTpl from '../templates/movieCardTpl.hbs';
 
-const fetchMovieHeader = new FetchMovieHeader();
+const API_KEY = 'b59f17e26fe0bb62f0ad4e21eca227b9';
+const BASE_URL = 'https://api.themoviedb.org/3';
 
-ref.galleryRef.addEventListener('gallery', function addList(movieTpl) {
-  const countriesLayout = movieTpl
-    .map(data => {
-      return `<ul>${movieTpl(data)}</ul>`;
-    })
-    .join('');
-});
+fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=b59f17e26fe0bb62f0ad4e21eca227b9')
+  .then(response => {
+    return response.json();
+  })
+  .then(films => {
+    const murkup = movieCardTpl(films.results);
+    ref.galleryRef.innerHTML = murkup;
+  });
+const genre = fetch(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`)
+  .then(response => {
+    return response.json();
+  })
+  .then(data => {
+    console.log(data);
+  });

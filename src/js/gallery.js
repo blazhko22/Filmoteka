@@ -1,7 +1,7 @@
 import ref from './Refs';
-import movieCardTpl from '../templates/movieCardTpl.hbs';
-
-const API_KEY = 'b59f17e26fe0bb62f0ad4e21eca227b9';
+import movieCardTpl from '../templates/fetchMovieTemplate.hbs';
+import ApiService from './FetchMovie';
+const API_KEY = new ApiService();
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=b59f17e26fe0bb62f0ad4e21eca227b9')

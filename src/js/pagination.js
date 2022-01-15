@@ -4,9 +4,9 @@ import ref from './Refs';
 
 function tuiPagination() {
   const options = {
-    totalItems: 50,
-    itemsPerPage: 10,
-    visiblePages: 10,
+    totalItems: 100,
+    itemsPerPage: 20,
+    visiblePages: 5,
     page: 1,
     centerAlign: false,
     firstItemClassName: 'tui-first-child',
@@ -18,9 +18,9 @@ function tuiPagination() {
   pagination.on('beforeMove', event => {
     const currentPage = event.page;
 
-    if (currentPage === 10) {
-      return false;
-    }
+    // if (currentPage === 10) {
+    //   return false;
+    // }
     console.log(currentPage);
   });
 }

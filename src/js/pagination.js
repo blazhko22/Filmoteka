@@ -1,9 +1,5 @@
 import Pagination from 'tui-pagination';
-// import 'tui-pagination/dist/tui-pagination.css';
-import refs from './Refs';
-import DataFetch from './filmServiceApi.js';
-const dataFetch = new DataFetch();
-import { renderFilmCard } from './renderTrandingMovies';
+import ref from './Refs';
 
 function tuiPagination() {
   const options = {
@@ -16,14 +12,15 @@ function tuiPagination() {
     lastItemClassName: 'tui-last-child',
   };
 
-  const pagination = new Pagination(refs.paginationRef, options);
+  const pagination = new Pagination(ref.paginationRef, options);
 
-  pagination.on('beforeMove', function (eventData) {
-    dataFetch.page = eventData.page;
-    dataFetch.fetchTopFilms().then(films => {
-      refs.galleryRef.innerHTML = '';
-      renderFilmCard(films.results);
-    });
+  pagination.on('beforeMove', event => {
+    const currentPage = event.page;
+
+    // if (currentPage === 10) {
+    //   return false;
+    // }
+    console.log(currentPage);
   });
 }
-export { tuiPagination };
+tuiPagination();

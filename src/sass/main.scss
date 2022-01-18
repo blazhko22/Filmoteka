@@ -33,10 +33,10 @@
 // section
 @import './components/gallery';
 @import './components/pagination';
-// ==================================================================
-//   @import './components/modal';
+// ==================================================================   
+@import './components/popup.scss';
 @import './components/formStyless';
-//   @import './components/filmCard';
+  @import './components/detailFilm.scss';
 //   @import './components/developers';
 // ==================================================================
 //  footer

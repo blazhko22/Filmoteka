@@ -23,8 +23,9 @@ function authState(){
           const uid = user.uid;
           console.log(uid)
           console.log(user.email)
-          localStorage.setItem('userId',uid)
-          // console.log(user.accessToken)
+          let userData = {'accessToken':user.accessToken ,'uid': user.uid}
+          localStorage.setItem('userData', JSON.stringify(userData));
+          console.log(user.accessToken)
       } else {
         console.log('no user')
       }
@@ -35,8 +36,7 @@ function RegistrationWithEmailAndPassword(email, password) {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in 
-        const user = userCredential.user;
-        localStorage.setItem('userData', JSON.stringify(user.accessToken,user.uid));
+       console.log('RegistrationWithEmailAndPassword')
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -50,9 +50,7 @@ function authWithEmailAndPassword(email, password) {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in 
-        const user = userCredential.user;
-        console.log(user)
-        localStorage.setItem('userData', JSON.stringify(user.accessToken ,user.uid));
+        console.log('authWithEmailAndPassword')
       })
       .catch((error) => {
         const errorCode = error.code;

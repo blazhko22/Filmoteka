@@ -23,9 +23,23 @@ img {
 }
 // ==================================================================
 // main body stiles
+html,
 body {
+  height: 100%;
   font-family: $primary-font-family;
   font-size: $primary-font-size;
+}
+// ==================================================================
+// main stiles
+main {
+  flex: 1 1 auto;
+}
+// ==================================================================
+// wrapper stiles
+.wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 // ==================================================================
 // main container stiles
@@ -48,9 +62,9 @@ body {
   }
 }
 .header__container {
-  background-color: $header-Bg-color;
-  height: 230px;
   padding-top: 46px;
+  height: 230px;
+  //  padding-top: 46px;
 }
 // ==================================================================
 //class visible hidden

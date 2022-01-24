@@ -1,16 +1,17 @@
-
 export default {
-  // body: document.querySelector('body'),
   // =====================navigation panel=======================
-  backHomePage:document.querySelector('.logo'),
+  backHomePage: document.querySelector('.logo'),
   buttonLibrary: document.querySelector('.library-link'),
   buttonHome: document.querySelector('.current-link'),
   conteinerBtnLibrary: document.querySelector('.btns-library'),
   searchForm: document.querySelector('.form-header'),
   headerContainer: document.querySelector('.header__container'),
+  userGalleryFunctions: document.querySelector('.site-nav__list'),
+  BtnWatched: document.querySelector('.btn-watched'),
+  BtnQueue: document.querySelector('.btn-queue'),
   // ===============user buttons=======================================
-  logInButton:document.querySelector('#form-open'),
-  logOutButton:document.querySelector('#logOut'),
+  logInButton: document.querySelector('#form-open'),
+  logOutButton: document.querySelector('#logOut'),
   // ===============search=======================================
   formFilmSerch: document.querySelector('.form-search'),
   inputFilmSerch: document.querySelector('.search-input'),
@@ -26,5 +27,5 @@ export default {
   backdropBtnClose: document.querySelector('.btn-close'),
   popUp: document.querySelector('.pop-up'),
   // =======================footer================================
-  // footerButtonTeamModal: document.querySelector('.footer_button'),
+  footerBtnModal: document.querySelector('.team-button'),
 };

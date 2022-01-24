@@ -10,15 +10,15 @@
            {{else}}
           <img
             class="gallery__image"
-            src='https://i.ibb.co/NjvMgv7/poster.png'
+            src='https://raw.githubusercontent.com/VikOrlovskiy/Filmoteka-team-project/main/src/images/icons/poster.png'
             alt='no_poster'
           />
         {{/if}}
     </div>
     <div class="gallery__card-caption">
-      <h2 class="gallery__title">{{original_title}}</h2>
-      <p class="gallery__text"> {{filmGenry}}
-        <span class="gallery__text">| {{changedYear}}</span>
+      <h3 class="gallery__title">{{original_title}}</h2>
+      <p class="gallery__text"> {{genres}}
+        <span class="gallery__text">| {{release_date}}</span>
         <span class="gallery__card-rating">{{vote_average}}</span>
       </p>
   </article>   

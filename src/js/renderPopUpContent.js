@@ -1,13 +1,15 @@
 import ref from './Refs.js';
 import filmCard from '../templates/card.hbs';
+import userLibraryFilmCard from '../templates/userLibraryFilmCard.hbs';
 import { actionPopUp } from './actionPopUp';
-// import FilmsApiService1 from "./filmServiceApi";
-const ESC_KEY_DOWN = 'Escape';
-import fetchById from './FetchMovieInformation';
+import { onCkickWriteUserData ,onCkickRemoveUserData} from './fireBaseApi';
+import Notiflix from 'notiflix';
+import test from "./filmServiceApi";
+// import fetchById from './FetchMovieInformation';
 
  ref.gallery.addEventListener('click', onOpenPopUp);
 
-function onOpenPopUp(e) {
+async function onOpenPopUp(e) {
   e.preventDefault();
   let id;
   actionPopUp();
@@ -17,13 +19,65 @@ function onOpenPopUp(e) {
   ) {
     id = e.target.parentNode.parentNode.id;
     document.body.classList.add('show-modal');
-    fetchById(id).then(renderFilmCard);
+    // await fetchById(id).then(renderFilmCard);
+    await test.fetchFilmByID(id).then(renderFilmCard);
     return;
   }
-
 }
 
 // fuction renderFilmCard by Id
 function renderFilmCard(data) {
+  if(ref.headerContainer.classList.contains('header__container--library')){
+  ref.popUp.insertAdjacentHTML('beforeend', `${userLibraryFilmCard(data)}`);
+  document.querySelector('.film-detail__btns').addEventListener('click', onClickWriteDataFirebase)
+  return  
+}
   ref.popUp.insertAdjacentHTML('beforeend', `${filmCard(data)}`);
+  document.querySelector('.film-detail__btns').addEventListener('click', onClickWriteDataFirebase)
+}
+// ================firebase writeUserData=====================
+function onClickWriteDataFirebase(e){
+  let dataUser = JSON.parse(localStorage.getItem('userData'))
+  if(dataUser !== null){
+  if(e.target.nodeName !== 'BUTTON'){return}
+  if(e.target.dataset.action === 'Watched'){
+    onCkickWriteUserData(dataUser.accessToken,e.target.dataset.action,dataUser.uid,e.target.parentNode.id)
+    e.target.disabled = true;
+    e.target.textContent = 'added to Watch'
+   return 
+  }
+  if(e.target.dataset.action === 'remove'){
+    if(ref.BtnWatched.classList.contains('active')){
+      let userFilmDataWatchedValues = Object.values(JSON.parse(localStorage.getItem('Watched')));
+      let userFilmDataWatchedKeys = Object.keys(JSON.parse(localStorage.getItem('Watched')));
+      for (let i = 0; i < userFilmDataWatchedValues.length; i +=1) {
+        if(userFilmDataWatchedValues[i] === e.target.parentNode.id){
+          onCkickRemoveUserData(dataUser.accessToken,'Watched',userFilmDataWatchedKeys[i],dataUser.uid)
+        }
+      }
+      e.target.disabled = true;
+      e.target.textContent = 'removed'
+      return
+    }
+    if(ref.BtnQueue.classList.contains('active')){
+      let userFilmDataQueueValues = Object.values(JSON.parse(localStorage.getItem('queue')));
+      let userFilmDataQueueKeys = Object.keys(JSON.parse(localStorage.getItem('queue')));
+      for (let i = 0; i < userFilmDataQueueValues.length; i +=1) {
+        if(userFilmDataQueueValues[i] === e.target.parentNode.id){
+          onCkickRemoveUserData(dataUser.accessToken,'queue',userFilmDataQueueKeys[i],dataUser.uid)
+        }
+      }
+      e.target.disabled = true;
+      e.target.textContent = 'removed'
+      return
+    }
+   return 
+  }
+  onCkickWriteUserData(dataUser.accessToken,e.target.dataset.action,dataUser.uid,e.target.parentNode.id)
+  e.target.disabled = true;
+  e.target.textContent = 'added to Queue'
+}else{
+  Notiflix.Notify.failure('log in to use');
+e.target.disabled = true;}
+
 }

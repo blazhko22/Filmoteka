@@ -1,10 +1,15 @@
+.header{
+  background-color: $secondary-Bg-color;
+}
 .header__container {
   // padding: 45px 0;
-    background-color: $header-Bg-color;
+   // background-color: $header-Bg-color;
   
     height: 230px;
     margin-left: auto;
     margin-right: auto;
+
+    @media screen and (max-width: 320px) {
     background-image: linear-gradient(to top left, $header-Bg-color, $header-Bg-color),
       url('../images/mobile/header-mobile-x1.jpg');
     background-repeat: no-repeat;
@@ -18,8 +23,8 @@
       background-image: linear-gradient(to top left, $header-Bg-color, $header-Bg-color),
         url('../images/mobile/header-mobile-x2.jpg');
     }
-  
-    @media screen and (min-width: 769px) {
+}
+    @media screen and (min-width: 321px) and (max-width:768px) {
       background-image: linear-gradient(to top left, $header-Bg-color, $header-Bg-color),
         url('../images/tablet/header-tablet-x1.jpg');
       background-repeat: no-repeat;
@@ -35,7 +40,7 @@
       }
     }
   
-    @media screen and (min-width: 1025px) {
+    @media screen and (min-width: 769px) {
       background-image: linear-gradient(to top left, $header-Bg-color, $header-Bg-color),
         url('../images/desktop/header-desktop-x1.jpg');
       background-repeat: no-repeat;
@@ -52,15 +57,17 @@
     }
   }
   .header__container--library {
-    background-color: $header-Bg-color;
+   // background-color: $header-Bg-color;
     height: 230px;
     margin-left: auto;
     margin-right: auto;
+
+    @media screen and (max-width: 320px) {
     background-image: linear-gradient(to top left, $header-Bg-color, $header-Bg-color),
       url('../images/mobile/library-header-mobile-x1.jpg');
     background-repeat: no-repeat;
     background-position: center;
-    background-size: cover;
+    background-size: 320px 230px ;
   
     @media (min-device-pixel-ratio: 2),
       (-webkit-min-device-pixel-ratio: 2),
@@ -69,8 +76,8 @@
       background-image: linear-gradient(to top left, $header-Bg-color, $header-Bg-color),
         url('../images/mobile/library-header-mobile-x2.jpg');
     }
-  
-    @media screen and (min-width: 769px) {
+    }
+    @media screen and (min-width: 321px)and (max-width:768px) {
       background-image: linear-gradient(to top left, $header-Bg-color, $header-Bg-color),
         url('../images/tablet/library-header-tablet-x1.jpg');
       background-repeat: no-repeat;
@@ -86,7 +93,7 @@
       }
     }
   
-    @media screen and (min-width: 1025px) {
+    @media screen and (min-width: 769px) {
       background-image: linear-gradient(to top left, $header-Bg-color, $header-Bg-color),
         url('../images/desktop/library-header-desktop-x1.jpg');
       background-repeat: no-repeat;
@@ -105,10 +112,12 @@
 
 .nav {
     display: flex;
-    margin-bottom: 37px;
+  //  margin-bottom: 37px;
     
   }
-  
+  .navigation{
+    margin-bottom: 37px;
+  }
   .logo {
     margin-right: auto;
    
@@ -148,19 +157,14 @@
     }
   }
  
- /* .logo__nav:hover{
-    color: $acent-Bg-color;
-  }*/
+ 
+  
   .logo-filmoteka {
     width: 24px;
     height: 24px;
     text-decoration: none;
     cursor: pointer;
     color: $lite-text-color;
-  
-   /* &:hover {
-      color: $acent-Bg-color;
-    }*/
   }
   
   .form-search {
@@ -191,7 +195,7 @@
     width: 12px;
     height: 12px;
     fill: $lite-text-color;
-    &:hover{
+    &:hover, &:focus{
       fill: $acent-text-color;
       transition: fill 250ms $primary-animation;
     }
@@ -231,7 +235,7 @@
    
     color: $lite-text-color;
     transition: color 250ms $primary-animation;
-    &:hover {
+    &:hover, &:focus {
       color:  $acent-Bg-color;
     }
   }
@@ -245,7 +249,7 @@
     
     display: block;
     transition: color 250ms $primary-animation;
-    &:hover {
+    &:hover, &:focus {
       color:  $acent-Bg-color;
     }
   }
@@ -300,10 +304,6 @@
    
     color:$lite-text-color;
   }
-
-  .button__item:not(:last-child){
-    margin-right: 20px;
-  }
  .site-nav__button {
    // text-decoration: none;
    padding: 0;
@@ -313,7 +313,7 @@
     text-transform: uppercase;
     cursor: pointer;
     transition: color 250ms $primary-animation;
-    &:hover {
+    &:hover, &:focus {
       color:  $acent-Bg-color;
     }
     
@@ -325,4 +325,9 @@ font-size:$primary-font-size ;
   }
 }
   
-
+.message-register{
+  padding-top: 20px;
+  font-size: 20px;
+  text-align: center;
+ color: red;
+}

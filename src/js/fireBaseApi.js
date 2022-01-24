@@ -1,6 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword,onAuthStateChanged,signOut} from 'firebase/auth';
-import { getDatabase, ref, set, child, get  } from "firebase/database";
+import { getDatabase, ref} from "firebase/database";
+import Refs from "./Refs";
+import Notiflix from 'notiflix';
+const DATABASEURL = 'https://filmoteka2-11906-default-rtdb.europe-west1.firebasedatabase.app//users/'
 //================== Your web app's Firebase configuration ================================
 const firebaseConfig = {
     apiKey: "AIzaSyBR83s7HPzADcrtRoUE2ndSXGar5JAgfWk",
@@ -14,8 +17,6 @@ const firebaseConfig = {
 //================= Initialize Firebase ===================================================
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
-const db = getDatabase();
-const dbRef = ref(getDatabase());
 //=================  Firebase functions ===================================================
 // ========== Auth State ====================
 function authState(){
@@ -23,7 +24,14 @@ function authState(){
       if (user) {
           let userData = {'accessToken':user.accessToken ,'uid': user.uid}
           localStorage.setItem('userData', JSON.stringify(userData));
+          Refs.userGalleryFunctions.classList.remove('is-hidden');
+          Refs.logOutButton.classList.remove('is-hidden');
+          Refs.logInButton.classList.add('is-hidden');
       } else {
+        Refs.userGalleryFunctions.classList.add('is-hidden');
+        Refs.logOutButton.classList.add('is-hidden');
+        Refs.logInButton.classList.remove('is-hidden');
+        localStorage.clear()
         console.log('no user')
       }
     });
@@ -32,51 +40,59 @@ function authState(){
 function RegistrationWithEmailAndPassword(email, password) {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-       console.log('RegistrationWithEmailAndPassword')
+       Notiflix.Notify.success('Registration was successful');
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorMessage)
-        console.log(errorCode)
-        // ..
+        Notiflix.Notify.failure(`${error.message}`);
       });}
 // ==========login to Firebase====================
 function authWithEmailAndPassword(email, password) {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        console.log('authWithEmailAndPassword')
+        Notiflix.Notify.success('Authorization was successful');
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorMessage)
-        console.log(errorCode)
+        Notiflix.Notify.failure(error.message);
       });
     }
 // ========== log out====================
     function logOutAuthUser(){
       localStorage.clear()
       signOut(auth)
+      location.reload()
     }
-// ========== write User Data to Firebase====================
-function writeUserData(userId, Collection) {
-  console.log('write')
-    set(ref(db, 'users/' + userId), {
-      queue:Collection,
-      Watched:Collection,
-    });
-  }
-// ========== read User Data to Firebase====================
-  function readUserData(userId){
-    get(child(dbRef, `users/${userId}`)).then((data) => {
-        if (data.exists()) {
-          console.log('read', data.val());
-        } else {
-          console.log("No data available");
-        }
-      }).catch((error) => {
-        console.error(error);
-      });
-  }
-export{authWithEmailAndPassword,RegistrationWithEmailAndPassword,readUserData,writeUserData,logOutAuthUser,authState}
+// ========== Write User Data====================
+function onCkickWriteUserData(accessToken,nameCollection,uid,Collection) {
+  return fetch(
+    `${DATABASEURL}${uid}/${nameCollection}.json?auth=${accessToken}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(Collection),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  )
+    .then(response => response.json())
+}
+// ========== Read User Data====================
+function onCkickReadUserData(accessToken,nameCollection,uid) {
+  return fetch(
+    `${DATABASEURL}/${uid}/${nameCollection}.json?auth=${accessToken}`,
+  )
+    .then(response => response.json())
+    .then(response => { return response})
+}
+
+function onCkickRemoveUserData(accessToken,nameCollection,fireBaseWriteId,uid) {
+ return fetch( `${DATABASEURL}/${uid}/${nameCollection}/${fireBaseWriteId}.json?auth=${accessToken}`, {
+  method: "DELETE",
+})
+  .then(() => console.log("Post deleted"))
+  .catch(error => console.log("Error:", error));
+}
+export{onCkickWriteUserData,onCkickReadUserData,authWithEmailAndPassword,RegistrationWithEmailAndPassword,logOutAuthUser,authState,onCkickRemoveUserData}

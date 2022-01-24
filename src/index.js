@@ -11,7 +11,8 @@ import './js/renderUserLibrary';
 // ==========Document MAIN========
 import './js/gallery';
 import './js/paginationGallery';
-import './js/paginationSerchFilm';
+import './js/renderPopUpContent';
 import './js/loader';
+import './js/firebaseDataWork'
 // ==========Document FOOTER=========
-// import "./js/footer";
+import "./js/footerModal";

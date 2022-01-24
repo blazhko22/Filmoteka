@@ -8,12 +8,12 @@
               </svg>
           <h1 class="logo__nav">Filmoteka</h1>
         </a>
-        <ul class="site-nav__list">
+        <ul class="site-nav__list is-hidden">
           <li class="site-nav__item">
         <a href="#" class="home-link current-link site-nav__link">Home</a>
       </li>
         <li class="site-nav__item">
-        <a href="#" class="library-link site-nav__link">my library</a>
+        <a href="#" class="library-link site-nav__link" data-action="Watched">my library</a>
       </li>
     </ul>
     <ul class="button__list">
@@ -21,7 +21,7 @@
         <button class="site-nav__button" id="form-open">Log in</button>
       </li>
       <li class="button__item">
-        <button class="site-nav__button" id="logOut">Log out</button>
+        <button class="site-nav__button is-hidden" id="logOut">Log out</button>
       </li>
     </ul>
       </nav>
@@ -36,7 +36,7 @@
         placeholder="Поиск фильмов"
         minlength="3"
       />
-      <button class="search-button" type="submit">
+      <button class="search-button" type="submit" aria-label="search">
         <svg class="icon-search"  width="12" height="12"><use href="./images/icons/symbol-defs.svg#logo-search"></use></svg>
       </button>
     </form>
@@ -46,9 +46,9 @@
 
     <div class="btns-library is-hidden" data-action="btn-library-shown">
       <ul class="button-list">
-          <li class="button-list-item"><button type="button" class="btn-watched" data-action="btn-watched">Watched</button>
+          <li class="button-list-item"><button type="button" class="btn-watched" data-action="Watched">Watched</button>
           </li>
-          <li class="button-list-item"><button type="button" class="btn-queue" data-action="btn-queue">Queue</button></li>
+          <li class="button-list-item"><button type="button" class="btn-queue" data-action="queue">Queue</button></li>
       </ul>
   </div>
   

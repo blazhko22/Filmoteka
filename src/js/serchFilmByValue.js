@@ -18,7 +18,7 @@ function onSearch(e) {
     .then(films => {
       if (films.total_results === 0) {
         ref.inputFilmSerch.value = '';
-          dataFetch.fetchTopFilms().then(renderMovieCardFilms);
+        dataFetch.fetchTopFilms().then(renderMovieCardFilms);
         return error();
       } else {
         renderMovieCardFilms(films);
@@ -28,6 +28,8 @@ function onSearch(e) {
       console.log(error.message);
     });
   tuiPaginationSerch();
+  showLoader();
+  hideLoader();
 }
 
 function onSearchInput(e) {
@@ -63,4 +65,4 @@ function tuiPaginationSerch() {
 }
 function error() {
   return Notify.failure('Sorry, nothing was found for your search.');
-} 
+}

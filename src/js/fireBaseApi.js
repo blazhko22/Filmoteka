@@ -1,4 +1,4 @@
-import Refs from "./refs";
+import Refs from "./Refs";
 import Notiflix from 'notiflix';
 import { initializeApp } from "firebase/app";
 import { getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword,onAuthStateChanged,signOut} from 'firebase/auth';
@@ -87,7 +87,7 @@ function onCkickRemoveUserData(accessToken,nameCollection,fireBaseWriteId,uid) {
  return fetch( `${DATABASEURL}/${uid}/${nameCollection}/${fireBaseWriteId}.json?auth=${accessToken}`, {
   method: "DELETE",
 })
-  .then(() => console.log("Post deleted"))
+  .then(() => Notiflix.Notify.success('film is deleted'))
   .catch(error => console.log("Error:", error));
 }
 export{onCkickWriteUserData,onCkickReadUserData,authWithEmailAndPassword,RegistrationWithEmailAndPassword,logOutAuthUser,authState,onCkickRemoveUserData}
